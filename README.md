@@ -2,10 +2,10 @@
 [![](https://img.shields.io/pypi/v/python-imageutil.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/python-imageutil/)
 [![](https://pepy.tech/badge/python-imageutil/month)](https://pepy.tech/project/python-imageutil)
 [![](https://img.shields.io/github/stars/fabiocaccamo/python-imageutil?logo=github)](https://github.com/fabiocaccamo/python-imageutil/)
-[![](https://img.shields.io/pypi/l/python-imageutil.svg?color=blue)](https://github.com/fabiocaccamo/python-imageutil/blob/master/LICENSE.txt)
+[![](https://img.shields.io/pypi/l/python-imageutil.svg?color=blue)](https://github.com/fabiocaccamo/python-imageutil/blob/main/LICENSE.txt)
 
-[![](https://results.pre-commit.ci/badge/github/fabiocaccamo/python-imageutil/master.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/python-imageutil/master)
-[![](https://img.shields.io/github/actions/workflow/status/fabiocaccamo/python-imageutil/test-package.yml?branch=master&label=build&logo=github)](https://github.com/fabiocaccamo/python-imageutil)
+[![](https://results.pre-commit.ci/badge/github/fabiocaccamo/python-imageutil/main.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/python-imageutil/main)
+[![](https://img.shields.io/github/actions/workflow/status/fabiocaccamo/python-imageutil/test-package.yml?branch=main&label=build&logo=github)](https://github.com/fabiocaccamo/python-imageutil)
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/python-imageutil?logo=codecov)](https://codecov.io/gh/fabiocaccamo/python-imageutil)
 [![](https://img.shields.io/codacy/grade/e387a301748f4877b30dc4443bcadc00?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/python-imageutil)
 [![](https://img.shields.io/codeclimate/maintainability/fabiocaccamo/python-imageutil?logo=code-climate)](https://codeclimate.com/github/fabiocaccamo/python-imageutil/)
