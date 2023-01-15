@@ -1,0 +1,7 @@
+__author__ = "Fabio Caccamo"
+__copyright__ = "Copyright (c) 2023-present Fabio Caccamo"
+__description__ = "high-level image operations."
+__email__ = "fabio.caccamo@gmail.com"
+__license__ = "MIT"
+__title__ = "python-imageutil"
+__version__ = "0.0.0"
