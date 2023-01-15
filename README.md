@@ -12,7 +12,7 @@
 [![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # python-imageutil
-high-level image operations.
+🎩 elegant image operations on top of `Pillow`.
 
 ## Installation
 ```bash
