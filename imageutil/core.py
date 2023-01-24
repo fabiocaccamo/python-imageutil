@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional
 
 from imageutil.exceptions import InvalidAnchorError, InvalidColorError
 from imageutil.types import Anchor, AnchorName, Color, RGBAColor

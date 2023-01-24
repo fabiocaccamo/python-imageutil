@@ -1,4 +1,4 @@
-from imageutil.metadata import (
+from imageutil.metadata import (  # noqa: F401
     __author__,
     __copyright__,
     __description__,

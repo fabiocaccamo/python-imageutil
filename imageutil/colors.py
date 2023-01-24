@@ -92,8 +92,8 @@ def get_colors_distance(
     r2, g2, b2, a2 = color2
     return (
         max((r1 - r2) ** 2, (r1 - r2 - a1 + a2) ** 2)
-        + max((g1 - g2) ** 2, (g1 - g2 - a1 + a2) ** 2)
-        + max((b1 - b2) ** 2, (b1 - b2 - a1 + a2) ** 2)
+        + max((g1 - g2) ** 2, (g1 - g2 - a1 + a2) ** 2)  # noqa: W503
+        + max((b1 - b2) ** 2, (b1 - b2 - a1 + a2) ** 2)  # noqa: W503
     )
 
 
