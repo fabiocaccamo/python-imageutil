@@ -42,7 +42,7 @@ def get_color_brightness(
     :param color: The color
     :type color: Color
 
-    :returns: The color brightness.
+    :returns: The color brightness (0-255).
     :rtype: int
     """
     # https://www.w3.org/TR/AERT/#color-contrast
@@ -58,7 +58,7 @@ def get_color_brightness_normalized(
     color: Color,
 ) -> float:
     """
-    Gets the color brightness.
+    Gets the color brightness (normalized).
 
     :param color: The color
     :type color: Color
@@ -76,14 +76,14 @@ def get_colors_distance(
     color2: Color,
 ) -> int:
     """
-    Calculates the colors distance between two colors.
+    Calculates the distance between two colors.
 
     :param color1: The color 1
     :type color1: Color
     :param color2: The color 2
     :type color2: Color
 
-    :returns: The colors distance.
+    :returns: The colors distance (0-195075).
     :rtype: int
     """
     color1 = get_color(color1)
@@ -102,14 +102,14 @@ def get_colors_distance_normalized(
     color2: Color,
 ) -> float:
     """
-    Calculates the colors distance normalized (0.0-1.0).
+    Calculates the distance between two colors (normalized).
 
     :param color1: The color 1
     :type color1: Color
     :param color2: The color 2
     :type color2: Color
 
-    :returns: The colors distance normalized.
+    :returns: The colors distance normalized (0.0-1.0).
     :rtype: float
     """
     # max_colors_distance = get_colors_distance((0, 0, 0, 255), (255, 255, 255, 255))
