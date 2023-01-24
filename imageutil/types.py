@@ -1,6 +1,6 @@
-from typing import Literal, Union
+from typing import List, Literal, Tuple, Union
 
-Anchor = tuple[float, float]
+Anchor = Tuple[float, float]
 AnchorName = Literal[
     "bottom",
     "bottom-left",
@@ -12,6 +12,6 @@ AnchorName = Literal[
     "top-left",
     "top-right",
 ]
-RGBAColor = Union[tuple[int, int, int, int], list[int]]
-RGBColor = Union[tuple[int, int, int], list[int]]
+RGBAColor = Union[Tuple[int, int, int, int], List[int]]
+RGBColor = Union[Tuple[int, int, int], List[int]]
 Color = Union[RGBAColor, RGBColor]
