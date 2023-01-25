@@ -1,7 +1,7 @@
 from typing import Optional
 
 from imageutil.exceptions import InvalidAnchorError, InvalidColorError
-from imageutil.types import Anchor, AnchorName, Color, RGBAColor
+from imageutil.types import AnchorIn, AnchorOut, ColorIn, ColorOut
 
 __all__ = [
     "get_alpha",
@@ -29,17 +29,19 @@ def get_alpha(
 
 
 def get_anchor(
-    name: AnchorName,
-) -> Anchor:
+    name: AnchorIn,
+) -> AnchorOut:
     """
     Gets the anchor converting anchor position name string
     to a tuple (x, y) where each value is a float between 0.0 and 1.0.
 
     :param name: The anchor name
-    :type name: str
+    :type name: AnchorIn
 
     :returns: The anchor position.
-    :rtype: tuple
+    :rtype: AnchorOut
+
+    :raises InvalidAnchorError: If name is not a valid anchor name.
     """
     name_value = name.strip().lower()
     name_value = name_value.replace(" ", "-").replace("_", "-").replace("--", "-")
@@ -73,21 +75,21 @@ def get_anchor(
 
 
 def get_color(
-    color: Optional[Color] = None,
+    color: Optional[ColorIn] = None,
     opacity: Optional[float] = None,
-) -> RGBAColor:
+) -> ColorOut:
     """
     Gets the color.
 
     :param color: The color
-    :type color: RGBA / RGB color or None
+    :type color: ColorIn or None
     :param opacity: The opacity value (0.0-1.0)
     :type opacity: float
 
     :returns: The color.
-    :rtype: RGBAColor
+    :rtype: ColorOut
 
-    :raises InvalidColorError: If the color is not a valid RGBA / RGB color.
+    :raises InvalidColorError: If color is not a valid RGBA / RGB color.
     """
     if color is None:
         color = (255, 255, 255, 255)

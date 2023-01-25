@@ -1,12 +1,12 @@
 from typing import List
 
 from imageutil.core import get_color
-from imageutil.types import Color
+from imageutil.types import ColorIn, ColorOut
 
 
 def get_average_color(
-    colors: List[Color],
-) -> Color:
+    colors: List[ColorIn],
+) -> ColorOut:
     """
     Calculates the average color.
 
@@ -14,7 +14,7 @@ def get_average_color(
     :type colors: list of Colors
 
     :returns: The average color.
-    :rtype: Color
+    :rtype: ColorOut
     """
     r_sum, g_sum, b_sum, a_sum = 0, 0, 0, 0
     for color in colors:
@@ -34,13 +34,13 @@ def get_average_color(
 
 
 def get_color_brightness(
-    color: Color,
+    color: ColorIn,
 ) -> int:
     """
     Gets the color brightness.
 
     :param color: The color
-    :type color: Color
+    :type color: ColorIn
 
     :returns: The color brightness (0-255).
     :rtype: int
@@ -55,13 +55,13 @@ def get_color_brightness(
 
 
 def get_color_brightness_normalized(
-    color: Color,
+    color: ColorIn,
 ) -> float:
     """
     Gets the color brightness (normalized).
 
     :param color: The color
-    :type color: Color
+    :type color: ColorIn
 
     :returns: The color brightness normalized (0.0-1.0).
     :rtype: float
@@ -72,16 +72,16 @@ def get_color_brightness_normalized(
 
 
 def get_colors_distance(
-    color1: Color,
-    color2: Color,
+    color1: ColorIn,
+    color2: ColorIn,
 ) -> int:
     """
     Calculates the distance between two colors.
 
     :param color1: The color 1
-    :type color1: Color
+    :type color1: ColorIn
     :param color2: The color 2
-    :type color2: Color
+    :type color2: ColorIn
 
     :returns: The colors distance (0-195075).
     :rtype: int
@@ -98,16 +98,16 @@ def get_colors_distance(
 
 
 def get_colors_distance_normalized(
-    color1: Color,
-    color2: Color,
+    color1: ColorIn,
+    color2: ColorIn,
 ) -> float:
     """
     Calculates the distance between two colors (normalized).
 
     :param color1: The color 1
-    :type color1: Color
+    :type color1: ColorIn
     :param color2: The color 2
-    :type color2: Color
+    :type color2: ColorIn
 
     :returns: The colors distance normalized (0.0-1.0).
     :rtype: float
