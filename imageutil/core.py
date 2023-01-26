@@ -23,8 +23,10 @@ def get_alpha(
     :returns: The alpha value.
     :rtype: int
     """
+    # interpolate value
     alpha = int(round(255 * opacity))
-    alpha = max(0, min(alpha, 255))
+    # constain value
+    alpha = min(max(0, alpha), 255)
     return alpha
 
 
