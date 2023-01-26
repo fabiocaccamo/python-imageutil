@@ -1,6 +1,6 @@
 __author__ = "Fabio Caccamo"
 __copyright__ = "Copyright (c) 2023-present Fabio Caccamo"
-__description__ = "elegant image operations on top of Pillow."
+__description__ = "high-level image operations, with elegance."
 __email__ = "fabio.caccamo@gmail.com"
 __license__ = "MIT"
 __title__ = "python-imageutil"
