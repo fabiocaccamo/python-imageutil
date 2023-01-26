@@ -4,9 +4,11 @@ class InvalidAnchorError(ValueError):
     """
 
     def __init__(self, anchor):
-        message = "Invalid anchor, expected a value between ("
-        "'bottom', 'bottom-left', 'bottom-right', 'center', 'left', 'right', "
-        "'top', 'top-left', 'top-right'), found {anchor}."
+        message = (
+            "Invalid anchor, expected a value between ("
+            "'bottom', 'bottom-left', 'bottom-right', 'center', 'left', 'right', "
+            f"'top', 'top-left', 'top-right'), found {anchor}."
+        )
         super().__init__(message)
 
 
