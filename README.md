@@ -7,7 +7,7 @@
 [![](https://results.pre-commit.ci/badge/github/fabiocaccamo/python-imageutil/main.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/python-imageutil/main)
 [![](https://img.shields.io/github/actions/workflow/status/fabiocaccamo/python-imageutil/test-package.yml?branch=main&label=build&logo=github)](https://github.com/fabiocaccamo/python-imageutil)
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/python-imageutil?logo=codecov)](https://codecov.io/gh/fabiocaccamo/python-imageutil)
-[![](https://img.shields.io/codacy/grade/e387a301748f4877b30dc4443bcadc00?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/python-imageutil)
+[![](https://img.shields.io/codacy/grade/e387a301748f4877b30dc4443bcadc00?logo=codacy)](https://www.codacy.com/gh/fabiocaccamo/python-imageutil)
 [![](https://img.shields.io/codeclimate/maintainability/fabiocaccamo/python-imageutil?logo=code-climate)](https://codeclimate.com/github/fabiocaccamo/python-imageutil/)
 [![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
