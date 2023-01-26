@@ -1,12 +1,21 @@
+from pathlib import Path
 from typing import Optional
 
-from imageutil.exceptions import InvalidAnchorError, InvalidColorError
-from imageutil.types import AnchorIn, AnchorOut, ColorIn, ColorOut
+import fsutil
+
+from imageutil.exceptions import (
+    InvalidAnchorError,
+    InvalidColorError,
+    InvalidImageError,
+)
+from imageutil.pil import PILImage, PILImageObject
+from imageutil.types import AnchorIn, AnchorOut, ColorIn, ColorOut, ImageIn, ImageOut
 
 __all__ = [
     "get_alpha",
     "get_anchor",
     "get_color",
+    "get_image",
 ]
 
 
@@ -120,3 +129,34 @@ def get_color(
     # convert color back to tuple and return it
     color = (r, g, b, a)
     return color
+
+
+def get_image(
+    src: ImageIn,
+    copy: bool = True,
+) -> ImageOut:
+    """
+    Gets the image.
+
+    :param src: The source for an image object.
+    :type src: ImageIn
+    :param copy: The copy flag, if True copies the src PIL image.
+    :type copy: bool
+
+    :returns: The PIL image object.
+    :rtype: ImageOut
+
+    :raises InvalidImageError: If src is not a valid filepath / URL / PIL image.
+    """
+    if isinstance(src, (str, Path)):
+        image_src = str(src)
+        if image_src.startswith("https://") or image_src.startswith("http://"):
+            image_filepath = fsutil.download_file(image_src)
+        else:
+            image_filepath = image_src
+        image = PILImage.open(image_filepath)
+    elif isinstance(src, PILImageObject):
+        image = src.copy() if copy else src
+    else:
+        raise InvalidImageError(src)
+    return image

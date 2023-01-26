@@ -1,4 +1,7 @@
+from pathlib import Path
 from typing import List, Literal, Tuple, Union
+
+from imageutil.pil import PILImageObject
 
 AnchorName = Literal[
     "bottom",
@@ -20,3 +23,9 @@ RGBColor = Union[Tuple[int, int, int], List[int]]
 
 ColorIn = Union[RGBAColor, RGBColor]
 ColorOut = RGBAColor
+
+ImagePathIn = Union[str, Path]
+ImagePathOut = str
+
+ImageIn = Union[ImagePathIn, PILImageObject]
+ImageOut = PILImageObject
