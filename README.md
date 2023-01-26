@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ae9ef1278fc4b738884de244e8a7ce3)](https://app.codacy.com/gh/fabiocaccamo/python-imageutil?utm_source=github.com&utm_medium=referral&utm_content=fabiocaccamo/python-imageutil&utm_campaign=Badge_Grade_Settings)
 [![](https://img.shields.io/pypi/pyversions/python-imageutil.svg?color=blue&logo=python&logoColor=white)](https://www.python.org/)
 [![](https://img.shields.io/pypi/v/python-imageutil.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/python-imageutil/)
 [![](https://pepy.tech/badge/python-imageutil/month)](https://pepy.tech/project/python-imageutil)
