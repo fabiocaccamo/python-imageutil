@@ -108,6 +108,13 @@ def get_color(
         alpha = get_alpha(opacity)
         color[3] = alpha
 
+    # constain value
+    r, g, b, a = color
+    r = min(max(0, r), 255)
+    g = min(max(0, g), 255)
+    b = min(max(0, b), 255)
+    a = min(max(0, a), 255)
+
     # convert color back to tuple and return it
-    color = (color[0], color[1], color[2], color[3])
+    color = (r, g, b, a)
     return color
