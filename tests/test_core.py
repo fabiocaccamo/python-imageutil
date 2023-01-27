@@ -77,12 +77,14 @@ class CoreTestCase(unittest.TestCase):
         image = get_image(image_src)
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertEqual(image.size, (1200, 1200))
+        image.close()
 
     def test_get_image_with_pathlib_path(self):
         image_src = Path("./tests/images/python-logo.png")
         image = get_image(image_src)
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertEqual(image.size, (1200, 1200))
+        image.close()
 
     def test_get_image_with_url(self):
         image_src = (
@@ -92,6 +94,7 @@ class CoreTestCase(unittest.TestCase):
         image = get_image(image_src)
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertEqual(image.size, (1200, 1200))
+        image.close()
 
     def test_get_image_with_pil_image_with_copy(self):
         image_src = PILImage.new("RGBA", (10, 10), (0, 0, 0, 0))
@@ -99,6 +102,7 @@ class CoreTestCase(unittest.TestCase):
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertFalse(image_src is image)
         self.assertEqual(image_src.size, image.size)
+        image.close()
 
     def test_get_image_with_pil_image_without_copy(self):
         image_src = PILImage.new("RGBA", (10, 10), (0, 0, 0, 0))
@@ -106,6 +110,7 @@ class CoreTestCase(unittest.TestCase):
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertTrue(image_src is image)
         self.assertEqual(image_src.size, image.size)
+        image.close()
 
     def test_get_image_with_invalid_source(self):
         with self.assertRaises(InvalidImageError):
