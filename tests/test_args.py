@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from imageutil.core import get_alpha, get_anchor, get_color, get_image
+from imageutil.args import get_alpha, get_anchor, get_color, get_image
 from imageutil.exceptions import (
     InvalidAnchorError,
     InvalidColorError,

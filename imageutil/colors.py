@@ -1,6 +1,6 @@
 from typing import List
 
-from imageutil.core import get_color
+from imageutil.args import get_color
 from imageutil.types import ColorIn, ColorOut
 
 
