@@ -3,6 +3,20 @@ from typing import List, Literal, Tuple, Union
 
 from imageutil.pil import PILImageObject
 
+__all__ = [
+    "AnchorName",
+    "AnchorIn",
+    "AnchorOut",
+    "RGBAColor",
+    "RGBColor",
+    "ColorIn",
+    "ColorOut",
+    "ImagePathIn",
+    "ImagePathOut",
+    "ImageIn",
+    "ImageOut",
+]
+
 AnchorName = Literal[
     "bottom",
     "bottom-left",
