@@ -2,6 +2,7 @@ import unittest
 from pathlib import Path
 
 from imageutil.args import get_alpha, get_anchor, get_color, get_image
+from imageutil.core import Image
 from imageutil.exceptions import (
     InvalidAnchorError,
     InvalidColorError,
@@ -10,9 +11,9 @@ from imageutil.exceptions import (
 from imageutil.pil import PILImage, PILImageObject
 
 
-class CoreTestCase(unittest.TestCase):
+class ArgsTestCase(unittest.TestCase):
     """
-    This class describes metadata test case.
+    This class describes an arguments test case.
     """
 
     def test_get_alpha(self):
@@ -91,6 +92,13 @@ class CoreTestCase(unittest.TestCase):
             "https://raw.githubusercontent.com/fabiocaccamo"
             "/python-imageutil/main/tests/images/python-logo.png"
         )
+        image = get_image(image_src)
+        self.assertTrue(isinstance(image, PILImageObject))
+        self.assertEqual(image.size, (1200, 1200))
+        image.close()
+
+    def test_get_image_with_core_image_instance(self):
+        image_src = Image("./tests/images/python-logo.png")
         image = get_image(image_src)
         self.assertTrue(isinstance(image, PILImageObject))
         self.assertEqual(image.size, (1200, 1200))

@@ -148,6 +148,8 @@ def get_image(
 
     :raises InvalidImageError: If src is not a valid filepath / URL / PIL image.
     """
+    from imageutil.core import Image
+
     if isinstance(src, (str, Path)):
         image_src = str(src)
         if image_src.startswith("https://") or image_src.startswith("http://"):
@@ -157,6 +159,8 @@ def get_image(
         image = PILImage.open(image_filepath)
     elif isinstance(src, PILImageObject):
         image = src.copy() if copy else src
+    elif isinstance(src, Image):
+        image = src.pil_image.copy() if copy else src
     else:
         raise InvalidImageError(src)
     return image
