@@ -1,3 +1,10 @@
+__all__ = [
+    "InvalidAnchorError",
+    "InvalidColorError",
+    "InvalidImageError",
+]
+
+
 class InvalidAnchorError(ValueError):
     """
     This class describes an invalid anchor error.

@@ -1,112 +1,64 @@
 import unittest
-from pathlib import Path
 
-from imageutil.core import get_alpha, get_anchor, get_color, get_image
-from imageutil.exceptions import (
-    InvalidAnchorError,
-    InvalidColorError,
-    InvalidImageError,
-)
-from imageutil.pil import PILImage, PILImageObject
+from imageutil.core import Image
+from imageutil.pil import PILImageObject
 
 
 class CoreTestCase(unittest.TestCase):
     """
-    This class describes metadata test case.
+    This class describes a core test case.
     """
 
-    def test_get_alpha(self):
-        self.assertEqual(get_alpha(-1.0), 0)
-        self.assertEqual(get_alpha(0.0), 0)
-        self.assertEqual(get_alpha(0.5), 128)
-        self.assertEqual(get_alpha(1.0), 255)
-        self.assertEqual(get_alpha(2.0), 255)
-
-    def test_get_anchor(self):
-        self.assertEqual(get_anchor("top-left"), (0.0, 0.0))
-        self.assertEqual(get_anchor("top"), (0.5, 0.0))
-        self.assertEqual(get_anchor("top-right"), (1.0, 0.0))
-        self.assertEqual(get_anchor("left"), (0.0, 0.5))
-        self.assertEqual(get_anchor("center"), (0.5, 0.5))
-        self.assertEqual(get_anchor("right"), (1.0, 0.5))
-        self.assertEqual(get_anchor("bottom-left"), (0.0, 1.0))
-        self.assertEqual(get_anchor("bottom"), (0.5, 1.0))
-        self.assertEqual(get_anchor("bottom-right"), (1.0, 1.0))
-
-    def test_get_anchor_with_anchor_name_variant(self):
-        self.assertEqual(get_anchor(" Top Left "), (0.0, 0.0))
-        self.assertEqual(get_anchor(" Top "), (0.5, 0.0))
-        self.assertEqual(get_anchor(" Top_Right "), (1.0, 0.0))
-        self.assertEqual(get_anchor(" Left "), (0.0, 0.5))
-        self.assertEqual(get_anchor(" Center "), (0.5, 0.5))
-        self.assertEqual(get_anchor(" Right "), (1.0, 0.5))
-        self.assertEqual(get_anchor(" Bottom Left "), (0.0, 1.0))
-        self.assertEqual(get_anchor(" Bottom "), (0.5, 1.0))
-        self.assertEqual(get_anchor(" Bottom_Right "), (1.0, 1.0))
-
-    def test_get_anchor_with_invalid_anchor_name(self):
-        with self.assertRaises(InvalidAnchorError):
-            get_anchor("top-left-right")
-
-    def test_get_color(self):
-        self.assertEqual(get_color(), (255, 255, 255, 255))
-
-    def test_get_color_with_rgba(self):
-        self.assertEqual(get_color((255, 255, 255, 128)), (255, 255, 255, 128))
-
-    def test_get_color_with_rgb(self):
-        self.assertEqual(get_color((255, 255, 255)), (255, 255, 255, 255))
-
-    def test_get_color_with_rgba_and_opacity(self):
-        self.assertEqual(get_color((255, 255, 255, 255), 0.5), (255, 255, 255, 128))
-
-    def test_get_color_with_rgb_and_opacity(self):
-        self.assertEqual(get_color((255, 255, 255), 0.5), (255, 255, 255, 128))
-
-    def test_get_color_with_rgba_list(self):
-        self.assertEqual(get_color([255, 255, 255, 128]), (255, 255, 255, 128))
-
-    def test_get_color_with_invalid_color(self):
-        with self.assertRaises(InvalidColorError):
-            get_color((255, 255))
-        with self.assertRaises(InvalidColorError):
-            get_color((255, 255, 255, 255, 255))
-
-    def test_get_image_with_str_filepath(self):
+    def test_image_constructor(self):
         image_src = "./tests/images/python-logo.png"
-        image = get_image(image_src)
-        self.assertTrue(isinstance(image, PILImageObject))
-        self.assertEqual(image.size, (1200, 1200))
+        image = Image(image_src)
+        self.assertTrue(isinstance(image, Image))
+        self.assertTrue(isinstance(image.pil_image, PILImageObject))
+        image.close()
 
-    def test_get_image_with_pathlib_path(self):
-        image_src = Path("./tests/images/python-logo.png")
-        image = get_image(image_src)
-        self.assertTrue(isinstance(image, PILImageObject))
-        self.assertEqual(image.size, (1200, 1200))
+    def test_image_constructor_with_invalid_image(self):
+        image_src = "./tests/images/python-logo-invalid.png"
+        with self.assertRaises(FileNotFoundError):
+            Image(image_src)
 
-    def test_get_image_with_url(self):
-        image_src = (
-            "https://raw.githubusercontent.com/fabiocaccamo"
-            "/python-imageutil/main/tests/images/python-logo.png"
-        )
-        image = get_image(image_src)
-        self.assertTrue(isinstance(image, PILImageObject))
-        self.assertEqual(image.size, (1200, 1200))
+    def test_image_constructor_as_context_manager(self):
+        image_src = "./tests/images/python-logo.png"
+        with Image(image_src) as image:
+            self.assertTrue(isinstance(image, Image))
+            self.assertTrue(isinstance(image.pil_image, PILImageObject))
 
-    def test_get_image_with_pil_image_with_copy(self):
-        image_src = PILImage.new("RGBA", (10, 10), (0, 0, 0, 0))
-        image = get_image(image_src, copy=True)
-        self.assertTrue(isinstance(image, PILImageObject))
-        self.assertFalse(image_src is image)
-        self.assertEqual(image_src.size, image.size)
+    def test_image_load(self):
+        image_src = "./tests/images/python-logo.png"
+        image = Image.load(image_src)
+        self.assertTrue(isinstance(image, Image))
+        self.assertTrue(isinstance(image.pil_image, PILImageObject))
+        image.close()
 
-    def test_get_image_with_pil_image_without_copy(self):
-        image_src = PILImage.new("RGBA", (10, 10), (0, 0, 0, 0))
-        image = get_image(image_src, copy=False)
-        self.assertTrue(isinstance(image, PILImageObject))
-        self.assertTrue(image_src is image)
-        self.assertEqual(image_src.size, image.size)
+    def test_image_load_with_invalid_image(self):
+        image_src = "./tests/images/python-logo-invalid.png"
+        with self.assertRaises(FileNotFoundError):
+            Image.load(image_src)
 
-    def test_get_image_with_invalid_source(self):
-        with self.assertRaises(InvalidImageError):
-            get_image(None)
+    def test_image_load_as_context_manager(self):
+        image_src = "./tests/images/python-logo.png"
+        with Image.load(image_src) as image:
+            self.assertTrue(isinstance(image, Image))
+            self.assertTrue(isinstance(image.pil_image, PILImageObject))
+
+    def test_image_get_attr_method_of_wrapped_pil_image(self):
+        image_src = "./tests/images/python-logo.png"
+        with Image(image_src) as image:
+            image.rotate(90)
+            # image.show()
+
+    def test_image_get_attr_property_of_wrapped_pil_image(self):
+        image_src = "./tests/images/python-logo.png"
+        with Image(image_src) as image:
+            size = image.size
+            self.assertEqual(size, (1200, 1200))
+
+    def test_image_get_attr_invalid(self):
+        image_src = "./tests/images/python-logo.png"
+        with Image(image_src) as image:
+            with self.assertRaises(AttributeError):
+                image.invalid_attribute()

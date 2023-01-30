@@ -1,162 +1,66 @@
-from pathlib import Path
-from typing import Optional
-
-import fsutil
-
-from imageutil.exceptions import (
-    InvalidAnchorError,
-    InvalidColorError,
-    InvalidImageError,
-)
-from imageutil.pil import PILImage, PILImageObject
-from imageutil.types import AnchorIn, AnchorOut, ColorIn, ColorOut, ImageIn, ImageOut
+from imageutil import operations
+from imageutil.args import get_image
+from imageutil.pil import PILImageObject
+from imageutil.types import ImageIn
 
 __all__ = [
-    "get_alpha",
-    "get_anchor",
-    "get_color",
-    "get_image",
+    "Image",
 ]
 
 
-def get_alpha(
-    opacity: float,
-) -> int:
-    """
-    Gets the alpha (0-255 int value) mapping
-    the opacity input (0.0-1.0 float value).
+class Image:
+    @classmethod
+    def load(cls, src: ImageIn):
+        return cls(src)
 
-    :param opacity: The opacity
-    :type opacity: float
+    def __init__(self, src: ImageIn, copy: bool = True):
+        self.pil_image = get_image(src, copy=copy)
 
-    :returns: The alpha value.
-    :rtype: int
-    """
-    # interpolate value
-    alpha = int(round(255 * opacity))
-    # constain value
-    alpha = min(max(0, alpha), 255)
-    return alpha
+    def __enter__(self):
+        return self
 
+    def __exit__(self, e_type, e_value, e_traceback):
+        self.close()
 
-def get_anchor(
-    name: AnchorIn,
-) -> AnchorOut:
-    """
-    Gets the anchor converting anchor position name string
-    to a tuple (x, y) where each value is a float between 0.0 and 1.0.
-
-    :param name: The anchor name
-    :type name: AnchorIn
-
-    :returns: The anchor position.
-    :rtype: AnchorOut
-
-    :raises InvalidAnchorError: If name is not a valid anchor name.
-    """
-    name_value = name.strip().lower()
-    name_value = name_value.replace(" ", "-").replace("_", "-").replace("--", "-")
-    name_options = [
-        "bottom",
-        "bottom-left",
-        "bottom-right",
-        "center",
-        "left",
-        "right",
-        "top",
-        "top-left",
-        "top-right",
-    ]
-    if name_value not in name_options:
-        raise InvalidAnchorError(name_value)
-
-    if "left" in name_value:
-        left = 0.0
-    elif "right" in name_value:
-        left = 1.0
-    else:
-        left = 0.5
-    if "top" in name_value:
-        top = 0.0
-    elif "bottom" in name_value:
-        top = 1.0
-    else:
-        top = 0.5
-    return (left, top)
+    def __getattr__(self, attr: str):
+        try:
+            value = getattr(operations, attr)
+            return _ImageOperationAttr(self, value)
+        except AttributeError:
+            value = getattr(self.pil_image, attr)
+            if callable(value):
+                return _PILImageMethodAttr(self, value)
+            return _PILImagePropertyAttr(self, value)()
 
 
-def get_color(
-    color: Optional[ColorIn] = None,
-    opacity: Optional[float] = None,
-) -> ColorOut:
-    """
-    Gets the color.
+class _ImageAbstractAttr:
+    def __init__(self, image, attr):
+        self._image = image
+        self._attr = attr
 
-    :param color: The color
-    :type color: ColorIn or None
-    :param opacity: The opacity value (0.0-1.0)
-    :type opacity: float
+    def __call__(self, *args, **kwargs):
+        value = self._get_value(*args, **kwargs)
+        if isinstance(value, PILImageObject):
+            self._image.pil_image = value
+            return self._image
+        elif value is None:
+            return self._image
+        return value
 
-    :returns: The color.
-    :rtype: ColorOut
-
-    :raises InvalidColorError: If color is not a valid RGBA / RGB color.
-    """
-    if color is None:
-        color = (255, 255, 255, 255)
-
-    # TODO: add hex/hexa color format support
-
-    if len(color) not in (3, 4):
-        raise InvalidColorError(color)
-
-    color = list(color)
-    if len(color) == 3:
-        color.append(255)
-
-    # override color alpha using the opacity value
-    if opacity is not None:
-        alpha = get_alpha(opacity)
-        color[3] = alpha
-
-    # constain value
-    r, g, b, a = color
-    r = min(max(0, r), 255)
-    g = min(max(0, g), 255)
-    b = min(max(0, b), 255)
-    a = min(max(0, a), 255)
-
-    # convert color back to tuple and return it
-    color = (r, g, b, a)
-    return color
+    def _get_value(self, *args, **kwargs):
+        raise NotImplementedError()
 
 
-def get_image(
-    src: ImageIn,
-    copy: bool = True,
-) -> ImageOut:
-    """
-    Gets the image.
+class _ImageOperationAttr(_ImageAbstractAttr):
+    def _get_value(self, *args, **kwargs):
+        return self._attr(self._image.pil_image, *args, **kwargs)
 
-    :param src: The source for an image object.
-    :type src: ImageIn
-    :param copy: The copy flag, if True copies the src PIL image.
-    :type copy: bool
 
-    :returns: The PIL image object.
-    :rtype: ImageOut
+class _PILImageMethodAttr(_ImageAbstractAttr):
+    def _get_value(self, *args, **kwargs):
+        return self._attr(*args, **kwargs)
 
-    :raises InvalidImageError: If src is not a valid filepath / URL / PIL image.
-    """
-    if isinstance(src, (str, Path)):
-        image_src = str(src)
-        if image_src.startswith("https://") or image_src.startswith("http://"):
-            image_filepath = fsutil.download_file(image_src)
-        else:
-            image_filepath = image_src
-        image = PILImage.open(image_filepath)
-    elif isinstance(src, PILImageObject):
-        image = src.copy() if copy else src
-    else:
-        raise InvalidImageError(src)
-    return image
+
+class _PILImagePropertyAttr(_ImageAbstractAttr):
+    def _get_value(self, *args, **kwargs):
+        return self._attr
