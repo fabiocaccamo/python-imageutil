@@ -10,7 +10,7 @@ __all__ = [
 
 __author__ = "Fabio Caccamo"
 __copyright__ = "Copyright (c) 2023-present Fabio Caccamo"
-__description__ = "high-level image operations, with elegance."
+__description__ = "high-level image operations, with a bit of magic. "
 __email__ = "fabio.caccamo@gmail.com"
 __license__ = "MIT"
 __title__ = "python-imageutil"
