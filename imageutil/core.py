@@ -1,3 +1,5 @@
+from typing import Any
+
 from imageutil import operations
 from imageutil.args import get_image
 from imageutil.pil import PILImageObject
@@ -34,11 +36,11 @@ class Image:
 
 
 class _ImageAbstractAttr:
-    def __init__(self, image, attr):
+    def __init__(self, image: Image, attr: Any):
         self._image = image
         self._attr = attr
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> Any:
         value = self._get_value(*args, **kwargs)
         if isinstance(value, PILImageObject):
             self._image.pil_image = value
@@ -47,20 +49,20 @@ class _ImageAbstractAttr:
             return self._image
         return value
 
-    def _get_value(self, *args, **kwargs):
+    def _get_value(self, *args, **kwargs) -> Any:
         raise NotImplementedError()
 
 
 class _ImageOperationAttr(_ImageAbstractAttr):
-    def _get_value(self, *args, **kwargs):
+    def _get_value(self, *args, **kwargs) -> Any:
         return self._attr(self._image.pil_image, *args, **kwargs)
 
 
 class _PILImageMethodAttr(_ImageAbstractAttr):
-    def _get_value(self, *args, **kwargs):
+    def _get_value(self, *args, **kwargs) -> Any:
         return self._attr(*args, **kwargs)
 
 
 class _PILImagePropertyAttr(_ImageAbstractAttr):
-    def _get_value(self, *args, **kwargs):
+    def _get_value(self, *args, **kwargs) -> Any:
         return self._attr
