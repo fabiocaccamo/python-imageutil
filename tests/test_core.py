@@ -27,21 +27,21 @@ class CoreTestCase(unittest.TestCase):
             self.assertTrue(isinstance(image, Image))
             self.assertTrue(isinstance(image.pil_image, PILImageObject))
 
-    def test_image_load(self):
+    def test_image_open(self):
         image_src = "./tests/images/python-logo.png"
-        image = Image.load(image_src)
+        image = Image.open(image_src)
         self.assertTrue(isinstance(image, Image))
         self.assertTrue(isinstance(image.pil_image, PILImageObject))
         image.close()
 
-    def test_image_load_with_invalid_image(self):
+    def test_image_open_with_invalid_image(self):
         image_src = "./tests/images/python-logo-invalid.png"
         with self.assertRaises(FileNotFoundError):
-            Image.load(image_src)
+            Image.open(image_src)
 
-    def test_image_load_as_context_manager(self):
+    def test_image_open_as_context_manager(self):
         image_src = "./tests/images/python-logo.png"
-        with Image.load(image_src) as image:
+        with Image.open(image_src) as image:
             self.assertTrue(isinstance(image, Image))
             self.assertTrue(isinstance(image.pil_image, PILImageObject))
 

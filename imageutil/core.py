@@ -10,7 +10,7 @@ __all__ = [
 
 class Image:
     @classmethod
-    def load(cls, src: ImageIn):
+    def open(cls, src: ImageIn):
         return cls(src)
 
     def __init__(self, src: ImageIn, copy: bool = True):
