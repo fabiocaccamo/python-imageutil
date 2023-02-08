@@ -67,6 +67,12 @@ class ArgsTestCase(unittest.TestCase):
     def test_get_color_with_rgba_list(self):
         self.assertEqual(get_color([255, 255, 255, 128]), (255, 255, 255, 128))
 
+    def test_get_color_with_single_int_value(self):
+        self.assertEqual(get_color(128), (128, 128, 128, 255))
+
+    def test_get_color_with_single_float_value(self):
+        self.assertEqual(get_color(127.6), (128, 128, 128, 255))
+
     def test_get_color_with_invalid_color(self):
         with self.assertRaises(InvalidColorError):
             get_color((255, 255))
