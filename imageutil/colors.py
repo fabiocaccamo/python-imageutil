@@ -12,9 +12,7 @@ __all__ = [
 ]
 
 
-def get_average_color(
-    colors: list[ColorIn],
-) -> ColorOut:
+def get_average_color(colors: list[ColorIn]) -> ColorOut:
     """
     Calculates the average color.
 
@@ -41,9 +39,7 @@ def get_average_color(
     )
 
 
-def get_color_brightness(
-    color: ColorIn,
-) -> int:
+def get_color_brightness(color: ColorIn) -> int:
     """
     Gets the color brightness.
 
@@ -64,9 +60,7 @@ def get_color_brightness(
     return int(round((r_lum + g_lum + b_lum) / 1000))
 
 
-def get_color_brightness_normalized(
-    color: ColorIn,
-) -> float:
+def get_color_brightness_normalized(color: ColorIn) -> float:
     """
     Gets the color brightness (normalized).
 
@@ -81,10 +75,7 @@ def get_color_brightness_normalized(
     return brightness_norm
 
 
-def get_colors_distance(
-    color1: ColorIn,
-    color2: ColorIn,
-) -> int:
+def get_colors_distance(color1: ColorIn, color2: ColorIn) -> int:
     """
     Calculates the distance between two colors.
 
@@ -107,10 +98,7 @@ def get_colors_distance(
     )
 
 
-def get_colors_distance_normalized(
-    color1: ColorIn,
-    color2: ColorIn,
-) -> float:
+def get_colors_distance_normalized(color1: ColorIn, color2: ColorIn) -> float:
     """
     Calculates the distance between two colors (normalized).
 
