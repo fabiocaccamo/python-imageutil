@@ -1,4 +1,4 @@
-from typing import List
+from __future__ import annotations
 
 from imageutil.args import get_color
 from imageutil.types import ColorIn, ColorOut
@@ -13,7 +13,7 @@ __all__ = [
 
 
 def get_average_color(
-    colors: List[ColorIn],
+    colors: list[ColorIn],
 ) -> ColorOut:
     """
     Calculates the average color.

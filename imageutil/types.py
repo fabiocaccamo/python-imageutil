@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import List, Literal, Tuple, Union
+from typing import Literal
 
 from imageutil.pil import PILImageObject
 
@@ -30,16 +32,16 @@ AnchorName = Literal[
 ]
 
 AnchorIn = AnchorName
-AnchorOut = Tuple[float, float]
+AnchorOut = tuple[float, float]
 
-RGBAColor = Union[Tuple[int, int, int, int], List[int]]
-RGBColor = Union[Tuple[int, int, int], List[int]]
+RGBAColor = tuple[int, int, int, int] | list[int]
+RGBColor = tuple[int, int, int] | list[int]
 
-ColorIn = Union[RGBAColor, RGBColor]
+ColorIn = RGBAColor | RGBColor
 ColorOut = RGBAColor
 
-ImagePathIn = Union[str, Path]
+ImagePathIn = str | Path
 ImagePathOut = str
 
-ImageIn = Union[ImagePathIn, PILImageObject]
+ImageIn = ImagePathIn | PILImageObject
 ImageOut = PILImageObject

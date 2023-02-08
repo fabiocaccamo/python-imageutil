@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Optional
 
 import fsutil
 
@@ -19,9 +20,7 @@ __all__ = [
 ]
 
 
-def get_alpha(
-    opacity: float,
-) -> int:
+def get_alpha(opacity: float) -> int:
     """
     Gets the alpha (0-255 int value) mapping
     the opacity input (0.0-1.0 float value).
@@ -39,9 +38,7 @@ def get_alpha(
     return alpha
 
 
-def get_anchor(
-    name: AnchorIn,
-) -> AnchorOut:
+def get_anchor(name: AnchorIn) -> AnchorOut:
     """
     Gets the anchor converting anchor position name string
     to a tuple (x, y) where each value is a float between 0.0 and 1.0.
@@ -85,10 +82,7 @@ def get_anchor(
     return (left, top)
 
 
-def get_color(
-    color: Optional[ColorIn] = None,
-    opacity: Optional[float] = None,
-) -> ColorOut:
+def get_color(color: ColorIn | None = None, opacity: float | None = None) -> ColorOut:
     """
     Gets the color.
 
@@ -131,10 +125,7 @@ def get_color(
     return color
 
 
-def get_image(
-    src: ImageIn,
-    copy: bool = True,
-) -> ImageOut:
+def get_image(src: ImageIn, copy: bool = True) -> ImageOut:
     """
     Gets the image.
 
