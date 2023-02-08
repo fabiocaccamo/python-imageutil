@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Optional
 
 import fsutil
 
@@ -19,9 +20,7 @@ __all__ = [
 ]
 
 
-def get_alpha(
-    opacity: float,
-) -> int:
+def get_alpha(opacity: float) -> int:
     """
     Gets the alpha (0-255 int value) mapping
     the opacity input (0.0-1.0 float value).
@@ -39,9 +38,7 @@ def get_alpha(
     return alpha
 
 
-def get_anchor(
-    name: AnchorIn,
-) -> AnchorOut:
+def get_anchor(name: AnchorIn) -> AnchorOut:
     """
     Gets the anchor converting anchor position name string
     to a tuple (x, y) where each value is a float between 0.0 and 1.0.
@@ -85,10 +82,7 @@ def get_anchor(
     return (left, top)
 
 
-def get_color(
-    color: Optional[ColorIn] = None,
-    opacity: Optional[float] = None,
-) -> ColorOut:
+def get_color(value: ColorIn | None = None, opacity: float | None = None) -> ColorOut:
     """
     Gets the color.
 
@@ -102,14 +96,20 @@ def get_color(
 
     :raises InvalidColorError: If color is not a valid RGBA / RGB color.
     """
-    if color is None:
-        color = (255, 255, 255, 255)
+    if value is None:
+        color = [255, 255, 255, 255]
+    elif isinstance(value, (float, int)):
+        color = [int(round(value))] * 3
+    elif isinstance(value, (list, tuple)):
+        color = list(value)
+        if len(color) not in (3, 4):
+            raise InvalidColorError(color)
+    else:
+        raise InvalidColorError(value)
 
     # TODO: add hex/hexa color format support
 
-    if len(color) not in (3, 4):
-        raise InvalidColorError(color)
-
+    # set alpha in case of rgb color value
     color = list(color)
     if len(color) == 3:
         color.append(255)
@@ -127,14 +127,11 @@ def get_color(
     a = min(max(0, a), 255)
 
     # convert color back to tuple and return it
-    color = (r, g, b, a)
-    return color
+    rgba = (r, g, b, a)
+    return rgba
 
 
-def get_image(
-    src: ImageIn,
-    copy: bool = True,
-) -> ImageOut:
+def get_image(src: ImageIn, copy: bool = True) -> ImageOut:
     """
     Gets the image.
 

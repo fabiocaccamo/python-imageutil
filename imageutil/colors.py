@@ -1,4 +1,4 @@
-from typing import List
+from __future__ import annotations
 
 from imageutil.args import get_color
 from imageutil.types import ColorIn, ColorOut
@@ -13,7 +13,7 @@ __all__ = [
 
 
 def get_average_color(
-    colors: List[ColorIn],
+    colors: list[ColorIn],
 ) -> ColorOut:
     """
     Calculates the average color.
@@ -56,9 +56,11 @@ def get_color_brightness(
     # https://www.w3.org/TR/AERT/#color-contrast
     # ((Red value X 299) + (Green value X 587) + (Blue value X 114)) / 1000 > 186
     # https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-    r_lum = color[0] * 299
-    g_lum = color[1] * 587
-    b_lum = color[2] * 114
+    rgba = get_color(color)
+    r, g, b, _ = rgba
+    r_lum = r * 299
+    g_lum = g * 587
+    b_lum = b * 114
     return int(round((r_lum + g_lum + b_lum) / 1000))
 
 
@@ -94,10 +96,10 @@ def get_colors_distance(
     :returns: The colors distance (0-195075).
     :rtype: int
     """
-    color1 = get_color(color1)
-    color2 = get_color(color2)
-    r1, g1, b1, a1 = color1
-    r2, g2, b2, a2 = color2
+    rgba1 = get_color(color1)
+    rgba2 = get_color(color2)
+    r1, g1, b1, a1 = rgba1
+    r2, g2, b2, a2 = rgba2
     return (
         max((r1 - r2) ** 2, (r1 - r2 - a1 + a2) ** 2)
         + max((g1 - g2) ** 2, (g1 - g2 - a1 + a2) ** 2)  # noqa: W503
