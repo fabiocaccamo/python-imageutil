@@ -31,11 +31,6 @@ repos:
         additional_dependencies:
           - flake8-bugbear
 
-  - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v2.2.0
-    hooks:
-      - id: setup-cfg-fmt
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
