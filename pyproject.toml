@@ -81,6 +81,9 @@ exclude = '''
 )/
 '''
 
+[tool.isort]
+profile = "black"
+
 [tool.mypy]
 files = ["imageutil"]
 ignore_missing_imports = true
