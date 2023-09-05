@@ -1,6 +1,6 @@
 [![](https://img.shields.io/pypi/pyversions/python-imageutil.svg?color=blue&logo=python&logoColor=white)](https://www.python.org/)
 [![](https://img.shields.io/pypi/v/python-imageutil.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/python-imageutil/)
-[![](https://pepy.tech/badge/python-imageutil/month)](https://pepy.tech/project/python-imageutil)
+[![](https://static.pepy.tech/badge/python-imageutil/month)](https://pepy.tech/project/python-imageutil)
 [![](https://img.shields.io/github/stars/fabiocaccamo/python-imageutil?logo=github)](https://github.com/fabiocaccamo/python-imageutil/stargazers)
 [![](https://img.shields.io/pypi/l/python-imageutil.svg?color=blue)](https://github.com/fabiocaccamo/python-imageutil/blob/main/LICENSE.txt)
 
