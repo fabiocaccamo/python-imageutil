@@ -8,10 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # environment: release
+    permissions:
+      id-token: write
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Extract release notes
         id: extract-release-notes
@@ -38,5 +41,5 @@ jobs:
       - name: Publish on PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages_dir: dist/
-          password: ${{ secrets.WORKFLOWS_PUBLISH_TO_PYPI_TOKEN }}
+          packages-dir: dist/
+          # password: ${{ secrets.WORKFLOWS_PUBLISH_TO_PYPI_TOKEN }}
